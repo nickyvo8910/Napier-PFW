@@ -11,6 +11,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @* Menu code  *@
     <div class="navbar navbar-light bg-light navbar-expand-lg navbar-fixed-top ">
         <!-- Action Link (label, actionName,targetController, queryString&value, actionLinkProperty) -->
         @Html.ActionLink("Vote for Your Wallet", "Index", "Home", new { }, new { @class = "navbar-brand" })
@@ -54,17 +55,24 @@
         </div>
     </div>
 
+    
+
+    @*Footer code*@
+<div class="container body-content">
+
+    @*Error Pages common body*@
     <hgroup>
         <h1>Error.</h1>
         <h2>An error occurred while processing your request.</h2>
+        <h2>Click @Html.ActionLink("here", "Index", "Home") to go back to the Homepage.</h2>
     </hgroup>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Vote for Your Wallet</p>
-        </footer>
-    </div>
+
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Vote for Your Wallet</p>
+    </footer>
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

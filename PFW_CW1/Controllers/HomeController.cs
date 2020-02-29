@@ -26,12 +26,45 @@ namespace PFW_CW1.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult LogIn()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
-       
+
+        public ActionResult SignUp()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult MyProfile()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult MyCauses()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult MyNewCause()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
+
     }
 }
