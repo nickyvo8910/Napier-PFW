@@ -141,6 +141,7 @@
     <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\css\bootstrapTable.css" />
     <Content Include="Content\css\clean-blog\clean-blog.css" />
     <Content Include="Content\css\clean-blog\clean-blog.min.css" />
     <Content Include="Content\fontawesome-free\css\all.css" />
@@ -166,6 +167,7 @@
     <Content Include="Content\img\home-bg.jpg" />
     <Content Include="Content\img\post-bg.jpg" />
     <Content Include="Content\img\post-sample-image.jpg" />
+    <Content Include="Content\img\vfyw_banner.png" />
     <Content Include="Content\img\vote.ico" />
     <Content Include="Content\img\vote.png" />
     <Content Include="Content\js\clean-blog.js" />

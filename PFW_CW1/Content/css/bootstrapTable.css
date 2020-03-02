@@ -1,0 +1,30 @@
+﻿/* For small screen */
+section.container :nth-child(even) {
+    background-color: #dcdcdc !important;
+}
+
+section.container :nth-child(odd) {
+    background-color: #aaaaaa !important;
+}
+
+/*/* For medium screen !1!
+@media (min-width: 768px) {
+    section.container :nth-child(4n), .section.container:nth-child(4n-1){
+        background: #dcdcdc !important;
+    }
+
+    section.container :nth-child(4n-2), section.container :nth-child(4n-3) {
+        background: #aaaaaa !important;
+    }
+}
+
+/* For large screen !1!
+@media (min-width: 992px) {
+    section.container:nth-child(6n), section.container:nth-child(6n-1), section.container :nth-child(6n-2) {
+        background: #dcdcdc !important;
+    }
+
+    section.container:nth-child(6n-3), section.container :nth-child(6n-4), section.container :nth-child(6n-5)  {
+        background: #aaaaaa !important;
+    }
+}*/
