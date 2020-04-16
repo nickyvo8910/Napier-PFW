@@ -9,86 +9,94 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+    <script>
+
+        //jquery for hiding user functionality when not logged in
+        $(document).ready(function () { $("#userMenu").hide(); });
+
+    </script>
+
 </head>
 <body>
-    <div class="navbar navbar-light bg-light navbar-expand-lg navbar-fixed-top ">
-        <!-- Action Link (label, actionName,targetController, queryString&value, actionLinkProperty) -->
-        <img alt="VoteForYourWalletLogo" class="navbar-brand" src="~/Content/img/vote.png" />
-        @Html.ActionLink("Vote with Your Wallet", "Index", "Home", new { }, new { @class = "navbar-brand mx-md-0" })
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="navbar navbar-light bg-light navbar-expand-lg navbar-fixed-top ">
+    <!-- Action Link (label, actionName,targetController, queryString&value, actionLinkProperty) -->
+    <img alt="VoteForYourWalletLogo" class="navbar-brand" src="~/Content/img/vote.png"/>
+    @Html.ActionLink("Vote with Your Wallet", "Index", "Home", new {}, new {@class = "navbar-brand mx-md-0"})
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="navbar-collapse collapse" id="navbarMenu">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("Index", "Home")">Our Causes</a>
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("About Us", "About", "Home", new { @class = "nav-link" })
-                </li>
-                <li class="nav-item" id="guestMenu">
-                    <div class="row p-md-2 mt-md-2 mx-sm-0">
-                        @Html.ActionLink("Log In", "LogIn", "Home", new { @class = "nav-link" })
-                        <i>&nbsp;or&nbsp;</i>
-                        @Html.ActionLink("Sign Up", "SignUp", "Home", new { @class = "nav-link" })
-                    </div>
-                </li>
-                <li class="nav-item dropdown" display="none " id="userMenu">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown03">
-                        @Html.ActionLink("My Profile", "MyProfile", "Home", new { }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("My Causes", "MyCauses", "Home", new { }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Start a new cause", "MyNewCause", "Home", new { }, new { @class = "dropdown-item" })
-                    </div>
-                </li>
-                <li>
-                    <button class="btn btn-default" id="btnMenuToggle">Toggle Guest/User Mode (Will be removed)</button>
-                </li>
+    <div class="navbar-collapse collapse" id="navbarMenu">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "Home")">Our Causes</a>
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("About Us", "About", "Home", new {@class = "nav-link"})
+            </li>
+            <li class="nav-item" id="guestMenu">
+                <div class="row p-md-2 mt-md-2 mx-sm-0">
+                    @Html.ActionLink("Log In", "LogIn", "Home", new {@class = "nav-link"})
+                    <i>&nbsp;or&nbsp;</i>
+                    @Html.ActionLink("Sign Up", "SignUp", "Home", new {@class = "nav-link"})
+                </div>
+            </li>
+            <li class="nav-item dropdown" display="none " id="userMenu">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown03">
+                    @Html.ActionLink("My Profile", "MyProfile", "Home", new {}, new {@class = "dropdown-item"})
+                    @Html.ActionLink("My Causes", "MyCauses", "Home", new {}, new {@class = "dropdown-item"})
+                    @Html.ActionLink("Start a new cause", "MyNewCause", "Home", new {}, new {@class = "dropdown-item"})
+                </div>
+            </li>
+            <li>
+                <button class="btn btn-default" id="btnMenuToggle">Toggle Guest/User Mode (Will be removed)</button>
+            </li>
 
-            </ul>
+        </ul>
 
-            <div class="my-md-2 float-md-right">
-                <form class="form-inline">
-                    <input class="form-control" type="text" placeholder="Search current causes">
-                    &nbsp;
-                    <input class="form-control btn-default btn-primary  m-l-2 p-2" type="submit" value="Search">
-                </form>
-            </div>
-
+        <div class="my-md-2 float-md-right">
+            <form class="form-inline">
+                <input class="form-control" type="text" placeholder="Search current causes">
+                &nbsp;
+                <input class="form-control btn-default btn-primary  m-l-2 p-2" type="submit" value="Search">
+            </form>
         </div>
+
     </div>
-    <div class="container body-content">
-        @*Header code*@
-        <header class="col-12">
-            <span>
-                <a href="@Url.Action("Index", "Home")">
-                    <img class="img-fluid" id="logo" src="~/Content/img/vfyw_banner.png"
-                         alt="Banner">
-                </a>
-            </span>
+</div>
+<div class="container body-content">
+    @*Header code*@
+    <header class="col-12">
+        <span>
+            <a href="@Url.Action("Index", "Home")">
+                <img class="img-fluid" id="logo" src="~/Content/img/vfyw_banner.png"
+                     alt="Banner">
+            </a>
+        </span>
 
-            <div class="jumbotron">
-                <h1>Vote with Your Wallet</h1>
-                <p class="lead">Your voices matter. So let's make it heard</p>
-            </div>
-        </header>
-        @*End header code*@
+        <div class="jumbotron">
+            <h1>Vote with Your Wallet</h1>
+            <p class="lead">Your voices matter. So let's make it heard</p>
+        </div>
+    </header>
+    @*End header code*@
 
-        @RenderBody()
-        <hr />
-        <footer class="col-12">
-            <p>&copy; @DateTime.Now.Year - Vote with Your Wallet</p>
-        </footer>
-    </div>
+    @RenderBody()
+    <hr/>
+    <footer class="col-12">
+        <p>&copy; @DateTime.Now.Year - Vote with Your Wallet</p>
+    </footer>
+</div>
 
-    <!--jQ,Popper & JS-->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<!--jQ,Popper & JS-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
