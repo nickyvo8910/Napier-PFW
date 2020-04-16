@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="bg-light">
+    <div class="text-center ">
+        <div class="text-primary ">
+            <h2>Create new cause</h2>
+        </div>
+        <div class="text-info ">
+            <h5> Please fill in the following details to create a new cause</h5>
+        </div>
+    </div>
+
+    <div class="container col-8 text-center">
+        <form method="post">
+            <div class="row col-12">
+                <div class="form-group">
+                    <div class="form-inline text-center">
+                        <label class="col-4" for="title">Cause Title: </label>
+                        <input type="text" class="form-control col-6" id="title" placeholder="Your cause's headline" size="60" maxlength="60" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="form-group text-center">
+                    <div class="form-inline">
+                        <label class="col-4" for="details">Cause Details: </label>
+                        <textarea class="form-control col-6" id="details" placeholder="Details regarding your cause" rows="4" cols="60" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-12">
+                <div class="form-group text-center">
+                    <div class="form-inline">
+                        <label class="col-4" for="photo">Cause Photo: </label>
+                        <input type="file" class="form-control-file col-6" id="photo" aria-describedby="photoHelp" size="60" maxlength="60"/>
+                        <small id="photoHelp" class="form-text text-muted text-center">Upload a photo for your cause to attract more attention.</small>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <input class=" col-12 form-control btn-default btn-primary" type="submit" name="createCause" value="Create a new cause"/>
+            <br/>
+        </form>
+    </div>
+</section>

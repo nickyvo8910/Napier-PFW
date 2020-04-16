@@ -9,16 +9,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
-    <script>
-
-        //jquery for hiding user functionality when not logged in
-        $(document).ready(function () { $("#userMenu").hide(); });
-
-    </script>
-
 </head>
 <body>
+<script>
+    //jquery for hiding user functionality when not logged in
+    $(document).ready(function () { $("#userMenu").hide(); });
+
+    //temporary function to toggle between user/guest mode
+    $(document).ready(function () {
+        $("#btnMenuToggle").click(function () {
+            $("#guestMenu").toggle();
+            $("#userMenu").toggle();
+        });
+    });
+</script>
+@* Menu code  *@
 <div class="navbar navbar-light bg-light navbar-expand-lg navbar-fixed-top ">
     <!-- Action Link (label, actionName,targetController, queryString&value, actionLinkProperty) -->
     <img alt="VoteForYourWalletLogo" class="navbar-brand" src="~/Content/img/vote.png"/>
@@ -84,10 +89,12 @@
     @*End header code*@
 
     @RenderBody()
+    @*Footer Code*@
     <hr/>
     <footer class="col-12">
         <p>&copy; @DateTime.Now.Year - Vote with Your Wallet</p>
     </footer>
+    @*End Footer Code*@
 </div>
 
 <!--jQ,Popper & JS-->
