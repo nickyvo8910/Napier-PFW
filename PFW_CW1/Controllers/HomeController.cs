@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PFW_CW1.Controllers
@@ -10,7 +7,8 @@ namespace PFW_CW1.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var causesController = new CausesController();
+            return causesController.Index();
         }
 
         public ActionResult About()
@@ -23,6 +21,11 @@ namespace PFW_CW1.Controllers
 
             ViewBag.Message = "Your application description page.";
 
+            return View();
+        }
+
+        public ActionResult MoreInfo(int causeID)
+        {
             return View();
         }
 
@@ -53,6 +56,7 @@ namespace PFW_CW1.Controllers
 
             return View();
         }
+
         public ActionResult MyNewCause()
         {
             ViewBag.Message = "Your contact page.";
@@ -65,6 +69,5 @@ namespace PFW_CW1.Controllers
         {
             return View();
         }
-
     }
 }

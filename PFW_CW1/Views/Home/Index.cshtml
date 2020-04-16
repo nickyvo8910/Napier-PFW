@@ -3,23 +3,24 @@
 }
 
 <script>
-    
+
     //jquery for hiding user functionality when not logged in
-    $(document).ready(function() {$("#userMenu").hide();});
+    $(document).ready(function() { $("#userMenu").hide(); });
 
     //temporary function to toggle between user/guest mode
-    $(document).ready(function(){
-        $("#btnMenuToggle").click(function () {
+    $(document).ready(function() {
+        $("#btnMenuToggle").click(function() {
             $("#guestMenu").toggle();
             $("#userMenu").toggle();
         });
     });
     //load more causes on demand
-    $(document).ready(function(){
-        $("#btnLoadMore").click(function () {
+    $(document).ready(function() {
+        $("#btnLoadMore").click(function() {
             $("#causesList").append("<div class='row col-12'> New cause info will be loaded.</div>");
         });
     });
+
 
 </script>
 
@@ -33,29 +34,25 @@
 
     <section class="container bg-light row col-12" id="causesList">
 
-        <div class="row">
-            <div class="col-3 img-fluid"><img class="img-fluid" src="~/Content/img/vote.png" /></div>
-            <div class="col-9">
-                <h2 class="text-center">ViewBag.Item[1].Title</h2>
-                <div class="text-center">ViewBag.Item[1].Status</div>
-                <div class="text-center">ViewBag.Item[1].Count</div>
-                <h5 class="text-center">ViewBag.Item[1].Description</h5>
-                <div class="text-right">More Info</div>
-            </div>
-        </div>
+        @{
+            foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col-3 img-fluid">
+                        <img class="img-fluid" src="~/Content/img/vote.png"/>
+                    </div>
+                    <div class="col-9">
+                        <h2 class="text-center">ViewBag.Item.Title</h2>
+                        <div class="text-center">ViewBag.Item.Status</div>
+                        <div class="text-center">ViewBag.Item.Count</div>
+                        <h5 class="text-center">ViewBag.Item.Description</h5>
+                        @Html.ActionLink("More Info", "MoreInfo", "Home", new {@class = "nav-link text-right"})
+                    </div>
+                </div>
+            }
+        }
 
-        <div class="row">
-            <div class="col-3 img-fluid"><img class="img-fluid" src="~/Content/img/vote.png" /></div>
-            <div class="col-9">
-                <h2 class="text-center">ViewBag.Item[2].Title</h2>
-                <div class="text-center">ViewBag.Item[2].Status</div>
-                <div class="text-center">ViewBag.Item[2].Count</div>
-                <h5 class="text-center">ViewBag.Item[2].Description</h5>
-                <div class="text-right">More Info</div>
-            </div>
-        </div>
     </section>
     <button class=" col-12 btn btn-default" id="btnLoadMore">Load more Causes</button>
 
 </div>
-

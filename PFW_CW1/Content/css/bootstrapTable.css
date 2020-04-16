@@ -1,11 +1,7 @@
 ﻿/* For small screen */
-section.container :nth-child(even) {
-    background-color: #dcdcdc !important;
-}
+section.container :nth-child(even) { background-color: #dcdcdc !important; }
 
-section.container :nth-child(odd) {
-    background-color: #aaaaaa !important;
-}
+section.container :nth-child(odd) { background-color: #aaaaaa !important; }
 
 /*/* For medium screen !1!
 @media (min-width: 768px) {

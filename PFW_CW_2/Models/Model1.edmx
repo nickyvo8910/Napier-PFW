@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PFW_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="causes">
+          <Key>
+            <PropertyRef Name="causeId" />
+          </Key>
+          <Property Name="causeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="author" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="photoLnk" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="passwd" Type="varchar" MaxLength="50" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="fst_add" Type="varchar" MaxLength="50" />
+          <Property Name="snd_add" Type="varchar" MaxLength="50" />
+          <Property Name="trd_add" Type="varchar" MaxLength="50" />
+          <Property Name="photo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="pledges">
+          <Key>
+            <PropertyRef Name="causeId" />
+            <PropertyRef Name="memberId" />
+          </Key>
+          <Property Name="causeId" Type="int" Nullable="false" />
+          <Property Name="memberId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <Association Name="FK_causes_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="causes" Type="Self.causes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="causes">
+              <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pledges_causes">
+          <End Role="causes" Type="Self.causes" Multiplicity="1" />
+          <End Role="pledges" Type="Self.pledges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="causes">
+              <PropertyRef Name="causeId" />
+            </Principal>
+            <Dependent Role="pledges">
+              <PropertyRef Name="causeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pledges_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="pledges" Type="Self.pledges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="pledges">
+              <PropertyRef Name="memberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PFW_DBModelStoreContainer">
+          <EntitySet Name="causes" EntityType="Self.causes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pledges" EntityType="Self.pledges" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_causes_members" Association="Self.FK_causes_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="causes" EntitySet="causes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pledges_causes" Association="Self.FK_pledges_causes">
+            <End Role="causes" EntitySet="causes" />
+            <End Role="pledges" EntitySet="pledges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pledges_members" Association="Self.FK_pledges_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="pledges" EntitySet="pledges" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PFW_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="causes">
+          <Key>
+            <PropertyRef Name="causeId" />
+          </Key>
+          <Property Name="causeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="photoLnk" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="members" Relationship="Self.FK_causes_members" FromRole="causes" ToRole="members" />
+          <NavigationProperty Name="pledges" Relationship="Self.FK_pledges_causes" FromRole="causes" ToRole="pledges" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fst_add" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="snd_add" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="trd_add" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="causes" Relationship="Self.FK_causes_members" FromRole="members" ToRole="causes" />
+          <NavigationProperty Name="pledges" Relationship="Self.FK_pledges_members" FromRole="members" ToRole="pledges" />
+        </EntityType>
+        <EntityType Name="pledges">
+          <Key>
+            <PropertyRef Name="causeId" />
+            <PropertyRef Name="memberId" />
+          </Key>
+          <Property Name="causeId" Type="Int32" Nullable="false" />
+          <Property Name="memberId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="causes" Relationship="Self.FK_pledges_causes" FromRole="pledges" ToRole="causes" />
+          <NavigationProperty Name="members" Relationship="Self.FK_pledges_members" FromRole="pledges" ToRole="members" />
+        </EntityType>
+        <Association Name="FK_causes_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="causes" Type="Self.causes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="causes">
+              <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pledges_causes">
+          <End Role="causes" Type="Self.causes" Multiplicity="1" />
+          <End Role="pledges" Type="Self.pledges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="causes">
+              <PropertyRef Name="causeId" />
+            </Principal>
+            <Dependent Role="pledges">
+              <PropertyRef Name="causeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pledges_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="pledges" Type="Self.pledges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="pledges">
+              <PropertyRef Name="memberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PFW_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="causes" EntityType="Self.causes" />
+          <EntitySet Name="members" EntityType="Self.members" />
+          <EntitySet Name="pledges" EntityType="Self.pledges" />
+          <AssociationSet Name="FK_causes_members" Association="Self.FK_causes_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="causes" EntitySet="causes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pledges_causes" Association="Self.FK_pledges_causes">
+            <End Role="causes" EntitySet="causes" />
+            <End Role="pledges" EntitySet="pledges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pledges_members" Association="Self.FK_pledges_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="pledges" EntitySet="pledges" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PFW_DBModelStoreContainer" CdmEntityContainer="PFW_DBEntities">
+          <EntitySetMapping Name="causes">
+            <EntityTypeMapping TypeName="PFW_DBModel.causes">
+              <MappingFragment StoreEntitySet="causes">
+                <ScalarProperty Name="causeId" ColumnName="causeId" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="photoLnk" ColumnName="photoLnk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="PFW_DBModel.members">
+              <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="fst_add" ColumnName="fst_add" />
+                <ScalarProperty Name="snd_add" ColumnName="snd_add" />
+                <ScalarProperty Name="trd_add" ColumnName="trd_add" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pledges">
+            <EntityTypeMapping TypeName="PFW_DBModel.pledges">
+              <MappingFragment StoreEntitySet="pledges">
+                <ScalarProperty Name="causeId" ColumnName="causeId" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
