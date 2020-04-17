@@ -14,6 +14,20 @@ namespace PFW_CW_2.Controllers
     {
         private PFW_DBEntities db = new PFW_DBEntities();
 
+
+        public IEnumerable<PFW_CW_2.Models.causes> getPartialCauses(int loadItemNum)
+        {
+            return db.causes.Include(c => c.members).OrderByDescending(causes => causes.startDate).Take(loadItemNum)
+                .ToList();
+        }
+
+        public PartialViewResult PartialCauseResult(int loadItemNum)
+        {
+            return PartialView("CausePartialView", getPartialCauses(loadItemNum));
+        }
+
+
+
         // GET: Causes
         public ActionResult Index()
         {
