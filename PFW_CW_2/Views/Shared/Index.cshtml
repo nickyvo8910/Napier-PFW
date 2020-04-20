@@ -5,7 +5,7 @@
 @* This is a CW2 file *@
 
 <script>
-    var loadItemNum = 0;
+    var loadItemNum = 3;
 
 //        load more causes on demand
 //        init with Razor Load Partial (param =0) 
@@ -47,11 +47,12 @@
         <div class="text-info ml-3">
             <h2>Our Causes</h2>
             <p> Discover our causes and sign your signature to support them.</p>
+            <div class="sharethis-inline-share-buttons"></div>
         </div>
     </section>
     <section class="container bg-light row col-12" id="causesList">
         @Html.Partial("CausePartialView", new CausesController().GetPartialCauses(3))
     </section>
-    <button class=" col-12 btn btn-default" id="btnLoadMore">Load more Causes</button>
+    <button class=" col-12 btn btn-default text-primary" id="btnLoadMore">Load more Causes</button>
 
 </div>
