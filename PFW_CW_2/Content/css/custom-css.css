@@ -1,4 +1,13 @@
-﻿/*Example from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_password_val */
+﻿/*bootstrap list group scroll with max height*/
+/*Code from https://stackoverflow.com/questions/47256185/bootstrap-list-group-scroll */
+#signatureList{
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*Example from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_password_val */
 
 /* The message box is shown when the user clicks on the password field */
 #message {

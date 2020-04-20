@@ -1,14 +1,94 @@
 ﻿@model PFW_CW_2.Models.causes
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.title;
 }
+<link href="~/Content/css/custom-css.css" rel="stylesheet" type="text/css" />
 
 <h2>Details</h2>
 
+
+
+
+<div class="container col-12">
+    <h1 class="font-weight-bold text-center col-12">@Model.title</h1>
+    
+    <div class="row col-12 align-middle">
+        <div class="col-sm-12 col-md-5 img-fluid align-middle"><img class="img-fluid" src="~/Content/img/cause/@Model.photoLnk" alt="Cause-Photo" /></div>
+        <div class="col-sm-12 col-md-7 align-middle">
+            @{
+                if (Model.startDate != null)
+                {
+                    DateTime? starDate = Model.startDate;
+                    <div class="col-12 text-secondary text-center align-middle">Published on <b class="text-secondary">@starDate.Value.ToShortDateString()</b></div>
+                }
+
+                if (Model.members != null)
+                {
+                    String author = Model.members.first_name + " " + Model.members.last_name;
+                    <div class="col-12 text-secondary text-center align-middle">Published by <b class="text-secondary">@author</b></div>
+                }
+            }
+            <div class="col-12 text-secondary text-center align-middle">This cause have had <b class="text-warning">@Model.pledges.Count</b> supporter(s)</div>
+            @{
+                if (TempData["AuthenticationError"] != null)
+                {
+                    <label class=" col-12 text-center text-danger align-middle"> @TempData["AuthenticationError"]</label>
+                }
+                if (TempData["SQLError"] != null)
+                {
+                    <label class=" col-12 text-center text-danger align-middle"> @TempData["SQLError"]</label>
+                }
+
+            }
+            @using (Html.BeginForm("PledgeAction", "Pledges", FormMethod.Post,
+                    new { @class = "col-12" }))
+            {
+                @Html.AntiForgeryToken()
+                /*causeId,memberId,date*/
+                <input type="hidden" name="causeId" value="@Model.causeId" />
+                <input type="hidden" name="memberId" value="@Session["crrUsername"]" />
+                <input type="hidden" name="date" value="@DateTime.Now" />
+                <input class=" col-12 btn btn-warning text-center align-middle" type="submit" value="Pledge your support to this cause" />
+            }
+            <br />
+            <div class="justify-content-center col-12 p-2">
+                @*Social Media Sharing Function from https://sharethis.com/*@
+                <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5e9d00af69017f0019705263&product=inline-share-buttons" async="async"></script>
+                <div class="sharethis-inline-share-buttons"></div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 text-secondary text-info align-middle p-3">@Model.description</div>
+        <br/>
+        @Html.ActionLink("Back To Homepage", "Index", "Home", new { }, new { @class = "col-12 btn btn-default text-primary text-center align-middle" })
+        <br/>
+        
+        <div class="row col-12">
+            <h4 class="col-12"> Full list of supporters including: </h4>
+            <ul id="signatureList" class="col-12 list-group list-group-flush list-group-horizontal-md flex-fill overflow-auto text-secondary">
+                @{
+                    foreach (var item in @Model.pledges.OrderByDescending(c => c.date))
+                    {
+                        if (item.date != null)
+                        {
+                            DateTime? pledgeDate = item.date;
+                            <li class="list-group-item col-md-3">@item.members.first_name @item.members.last_name on (@pledgeDate.Value.ToShortDateString())</li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item col-md-3">@item.members.first_name @item.members.last_name</li>
+                        }
+
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div>
     <h4>causes</h4>
-    <hr/>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.title)
@@ -70,9 +150,9 @@
 
     </dl>
 </div>
-<div class="sharethis-inline-share-buttons"></div>
+
 <p>
 
-    @Html.ActionLink("Edit", "Edit", new {id = Model.causeId}) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.causeId }) |
     @Html.ActionLink("Back to List", "CauseAdminIndex")
 </p>

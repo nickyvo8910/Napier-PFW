@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using PFW_CW_2.Models;
 
 namespace PFW_CW_2.Controllers
@@ -10,12 +11,30 @@ namespace PFW_CW_2.Controllers
     {
         private readonly PFW_DBEntities db = new PFW_DBEntities();
 
-        // GET: Pledges
-        public ActionResult Index()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public RedirectToRouteResult PledgeAction([Bind(Include = "causeId,memberId,date")]
+            pledges pledges)
         {
-            var pledges = db.pledges.Include(p => p.causes).Include(p => p.members);
-            return View(pledges.ToList());
+            if (ModelState.IsValid && pledges.causeId != null && pledges.memberId != null && pledges.date != null)
+            {
+                if (db.pledges.Find(pledges.causeId,pledges.memberId)==null)
+                {
+                    db.pledges.Add(pledges);
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Causes", new { id = pledges.causeId });
+                }
+                TempData["SQLError"] = "Duplicated signature recognised. You can only pledge your support once.";
+                return RedirectToAction("Details", "Causes", new {id = pledges.causeId});
+            }
+
+            TempData["AuthenticationError"] = "Your login details are invalid. Please login again to proceed.";
+            return RedirectToAction("Details", "Causes", new { id = pledges.causeId});
         }
+
+        // GET: Pledges
+        
 
         // GET: Pledges/Details/5
         public ActionResult Details(int? id)

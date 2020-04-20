@@ -3,75 +3,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Causes Admin Index";
 }
-
-<h2>Causes Admin Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.startDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.endDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.photoLnk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.author)
-        </th>
-        <th></th>
-    </tr>
-
-    @{
-        if (Model != null)
-        {
-            foreach (var item in Model)
+<div class="container">
+    <h2 class="row col-12">Causes Admin Index</h2>
+    <div class="row col-12">
+        <div class="col-12 form-group error">
+            @if (TempData["SQLError"] != null)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.startDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.endDate)
-                    </td>
-                    <td>
-                        @{ var strStatus = item.status == 0 ? "Pending" : item.status == 1 ? "Published" : item.status == -1 ? "Retracted" : "Unknown"; }
-                        @strStatus
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.photoLnk)
-                    </td>
-                    <td>
-                        @{ var strAuthor = item.members.first_name + " " + item.members.last_name; }
-                        @strAuthor
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new {id = item.causeId}) |
-                        @Html.ActionLink("Details", "Details", new {id = item.causeId}) |
-                        @Html.ActionLink("Delete", "Delete", new {id = item.causeId})
-                    </td>
-                </tr>
+                <label class="text-center text-danger"> @TempData["SQLError"]</label>
             }
-        }
-    }
+            @if (TempData["SQlMsg"] != null)
+            {
+                <label class="text-center text-success"> @TempData["SQlMsg"]</label>
+            }
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        </div>
+        <table class="col-12 table">
+            <thead class="row col-12">
+            <tr class="col-12">
+                <th class="text-md-center">#</th>
+                <th class="col-3 text-md-center">Cause Title</th>
+                <th class="col-4 text-md-center">Published On</th>
+                <th class="col-4 text-md-center">Status</th>
+            </tr>
+            </thead>
+            <tbody class="row col-12">
+            @{
+                if (Model != null)
+                {
+                    var i = 0;
+                    foreach (var item in Model)
+                    {
+                        i++;
+                        <tr class="col-12 ">
+                            <td class=" text-md-center">@i</td>
+                            <td class=" col-4 text-md-center font-weight-bold ">
+                                @Html.ActionLink(item.title, "Details", "Causes", new {id = item.causeId}, new {})
+                            </td>
+                            <td class=" col-3 text-md-center">
+                                @if (item.startDate.HasValue)
+                                {
+                                    @item.startDate.Value.ToShortDateString()
+                                }
+                            </td>
+                            <td class=" col-4 text-md-center">
+                                @{
+                                    var crrStatus = "";
+                                    switch (item.status)
+                                    {
+                                        case 0:
+                                            crrStatus = " Pending";
+                                            break;
 
-</table>
+                                        case 1:
+                                            crrStatus = " Published";
+                                            break;
+                                        case -1:
+                                            crrStatus = " Retracted";
+                                            break;
+                                        default:
+                                            crrStatus = "Not Available";
+                                            break;
+                                    }
+                                    @crrStatus
+                                    if (item.status == 1)
+                                    {
+                                        using (Html.BeginForm("RetractResult", "Causes", FormMethod.Post,
+                                            new {}))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@item.causeId"/>
+                                            <input class="btn btn-sm btn-danger" onclick="return confirm('Are you sure ?')" type="submit" value="Retract"/>
+                                        }
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

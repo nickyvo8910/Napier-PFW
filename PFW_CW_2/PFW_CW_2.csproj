@@ -188,6 +188,7 @@
     <Content Include="Content\img\cause\8.jpg" />
     <Content Include="Content\img\cause\9.jpg" />
     <Content Include="Content\img\cause\default.jpg" />
+    <Content Include="Content\img\cause\post-sample-image.jpg" />
     <Content Include="Content\img\contact-bg.jpg" />
     <Content Include="Content\img\home-bg.jpg" />
     <Content Include="Content\img\post-bg.jpg" />
@@ -246,20 +247,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Index.cshtml" />
-    <Content Include="Views\causes\Create.cshtml" />
-    <Content Include="Views\causes\Delete.cshtml" />
     <Content Include="Views\causes\Details.cshtml" />
-    <Content Include="Views\causes\Edit.cshtml" />
-    <Content Include="Views\members\Create.cshtml" />
-    <Content Include="Views\members\Delete.cshtml" />
-    <Content Include="Views\members\Details.cshtml" />
-    <Content Include="Views\members\Edit.cshtml" />
-    <Content Include="Views\members\Index.cshtml" />
-    <Content Include="Views\pledges\Create.cshtml" />
-    <Content Include="Views\pledges\Delete.cshtml" />
-    <Content Include="Views\pledges\Details.cshtml" />
-    <Content Include="Views\pledges\Edit.cshtml" />
-    <Content Include="Views\pledges\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
@@ -269,6 +257,7 @@
     <Content Include="Views\Home\MyCauses.cshtml" />
     <Content Include="Views\Shared\CausePartialView.cshtml" />
     <Content Include="Views\causes\CauseAdminIndex.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

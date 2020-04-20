@@ -26,28 +26,24 @@ namespace PFW_CW_2.Controllers
             return View();
         }
 
-        public ActionResult MoreInfo(int causeID)
-        {
-            return View();
-        }
-
         public ActionResult LogIn()
         {
-            if (Session["crrUsername"] != null) return View("Index");
-
+            if (Session["crrUsername"] != null)
+            {
+                return Logout();
+            }
             return View();
         }
 
 
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult LogIn(string usrName, string pssWd)
         {
             if (Session["crrUsername"] != null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
             if (usrName == null)
@@ -68,8 +64,6 @@ namespace PFW_CW_2.Controllers
                     return Index();
                 }
 
-                if (ViewBag.Failedcount == null)
-                    ViewBag.Failedcount = 0;
                 ViewBag.Failedcount += 1;
             }
 
@@ -80,11 +74,10 @@ namespace PFW_CW_2.Controllers
         {
             if (Session["crrUsername"] != null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Registration Page";
 
             return View();
         }
@@ -98,8 +91,7 @@ namespace PFW_CW_2.Controllers
         {
             if (Session["crrUsername"] != null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
             if (ModelState.IsValid)
@@ -111,13 +103,14 @@ namespace PFW_CW_2.Controllers
                         var pic = Path.GetFileNameWithoutExtension(photo.FileName);
                         var ext = Path.GetExtension(photo.FileName);
                         var path = Path.Combine(
-                            Server.MapPath("~/Content/img/profile/"), pic+ext);
+                            Server.MapPath("~/Content/img/profile/"), pic + ext);
                         if (System.IO.File.Exists(path))
                         {
                             pic += "_1";
                             path = Path.Combine(
-                                Server.MapPath("~/Content/img/profile/"), pic+ext);
+                                Server.MapPath("~/Content/img/profile/"), pic + ext);
                         }
+
                         // file is uploaded
                         photo.SaveAs(path);
                         members.photo = pic + ext;
@@ -138,7 +131,7 @@ namespace PFW_CW_2.Controllers
                         return Index();
                     }
 
-                    ViewBag.SQlError = "Member Registration Failed. " + sqlResult + " has been updated.";
+                    ViewBag.SQlError = "Member Registration Failed. " + sqlResult + " record has been updated.";
                 }
                 else
                 {
@@ -153,11 +146,10 @@ namespace PFW_CW_2.Controllers
         {
             if (Session["crrUsername"] == null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Under Construction. This Should Provide A View Of Your Own Profile .";
 
             return View();
         }
@@ -166,11 +158,10 @@ namespace PFW_CW_2.Controllers
         {
             if (Session["crrUsername"] == null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Under Construction. This Should Provide A View Of Your Own Causes.";
 
             return View();
         }
@@ -179,13 +170,20 @@ namespace PFW_CW_2.Controllers
         {
             if (Session["crrUsername"] == null)
             {
-                Session.Abandon();
-                return View("Index");
+                return Logout();
             }
 
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            TempData["LoggedOut"] = "You have been logged out. Please log in again to proceed.";
+            return Index();
         }
 
 

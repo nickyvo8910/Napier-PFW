@@ -16,7 +16,7 @@ namespace PFW_CW_2.Models
     {
         public int causeId { get; set; }
         public string memberId { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public System.DateTime date { get; set; }
     
         public virtual causes causes { get; set; }
         public virtual members members { get; set; }

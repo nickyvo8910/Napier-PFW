@@ -17,35 +17,34 @@
         <div class="form-group error">
             @if (ViewBag.Failedcount != null)
             {
-            <label class="text-center text-danger"> Invalid Login Information.</label>
-            <label class="text-center text-danger"> Failed Attempt count is: @ViewBag.Failedcount</label>
+                <label class="text-center text-danger"> Invalid Login Information. Please try again.</label>
             }
 
             @if (ViewBag.NotValidUser != null)
             {
-        <label class="text-center text-danger"> @ViewBag.NotValidUser</label>
+                <label class="text-center text-danger"> @ViewBag.NotValidUser</label>
             }
             @if (ViewBag.InvalidUsername != null)
             {
-        <label class="text-center text-danger"> @ViewBag.NotValidUser</label>
+                <label class="text-center text-danger"> @ViewBag.NotValidUser</label>
             }
         </div>
 
         <form method="post" action="/Home/LogIn">
             @Html.AntiForgeryToken()
             <div class="form-inline">
-                <label for="usrName" class="col-4">User name:</label>
-                <input class="form-control col-6" type="text" name="usrName"
-                       id="usrName" size="60" maxlength="60" required placeholder="user@abc.xyz" />
+                <label for="usrName" class="col-4">Username:</label>
+                <input class="form-control col-6" type="email" name="usrName"
+                       id="usrName" size="60" maxlength="60" required placeholder="user@abc.xyz"/>
             </div>
             <div class="form-inline">
                 <label class="col-4" for="pssWd">Password:</label>
                 <input class="form-control col-6" type="password"
                        name="pssWd" id="pssWd" size="60" maxlength="60" required placeholder="********" />
             </div>
-            <br />
-            <input class=" col-12 form-control btn-default btn-primary" type="submit" name="login" value="Sign In" />
-            <br />
+            <br/>
+            <input class=" col-12 form-control btn-default btn-primary" type="submit" name="login" value="Sign In"/>
+            <br/>
         </form>
     </div>
 </section>

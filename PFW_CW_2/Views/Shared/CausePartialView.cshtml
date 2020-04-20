@@ -20,7 +20,7 @@
                 crrStatus = " Retracted";
                 break;
             default:
-                crrStatus = " Retracted";
+                crrStatus = "Not Available";
                 break;
         }
 
@@ -34,24 +34,45 @@
                 break;
         }
         
-    <div class="row align-middle">
-        <div class="col-sm-12 col-md-5 img-fluid">
-            <img class="img-fluid" src="~/Content/img/cause/@item.photoLnk" alt="Cause-Photo" />
-        </div>
-        <div class="col-sm-12 col-md-7">
-            <h2 class="text-center text-primary"> @item.title</h2>
-            @{
-                if (item.startDate != null)
+        <div class="row align-middle p-3">
+            <div class="col-sm-12 col-md-5 img-fluid">
+                <img class="img-fluid" src="~/Content/img/cause/@item.photoLnk" alt="Cause-Photo" />
+            </div>
+            <div class="col-sm-12 col-md-7">
+                <h2 class="text-center text-primary"> @item.title</h2>
+                @{
+                    if (item.startDate != null)
+                    {
+                        DateTime? starDate = item.startDate;
+                        <h5 class="text-center text-secondary">@starDate.Value.ToShortDateString()</h5>
+                    }}
+                <h5 class="text-center text-secondary"> @crrStatus </h5>
+
+                <h4 class="text-center text-success">This cause have had <b class="text-warning">@item.pledges.Count</b> @crrPledgeString </h4>
+                @using (Html.BeginForm("PledgeAction", "Pledges", FormMethod.Post,
+                    new { @class = "col-12" }))
                 {
-                    DateTime? starDate = item.startDate;
-                    <h4 class="text-center text-secondary"></h4>
-                }}
-            <h3 class="text-center text-secondary"> @crrStatus </h3>
-            <h2 class="text-center text-success">@item.pledges.Count @crrPledgeString</h2>
-            <h5 class="text-center text-info">"@item.description.Substring(0, 500) ..."</h5>
-            @Html.ActionLink("More Info", "Details", "Causes", new { id = item.causeId }, new { @class = "nav-link text-right" })
+                    @Html.AntiForgeryToken()
+                    /*causeId,memberId,date*/
+                    <input type="hidden" name="causeId" value="@item.causeId" />
+                    <input type="hidden" name="memberId" value="@Session["crrUsername"]" />
+                    <input type="hidden" name="date" value="@DateTime.Now" />
+                    <input class=" col-12 btn btn-warning text-center align-middle" type="submit" value="Pledge your support to this cause" />
+                }
+                @{
+                    if (@item.description.Length > 500)
+                    {
+                        <h5 class="text-center text-info">" @item.description.Substring(0, 500) ..."</h5>
+                    }
+                    else
+                    {
+                        <h5 class="text-center text-info">" @item.description "</h5>
+                    }
+
+                }
+            </div>
+            @Html.ActionLink("More Info About This Cause", "Details", "Causes", new { id = item.causeId }, new { @class = "col-12 btn btn-success" })
         </div>
-        
-    </div>
+        <br/>
     }
 }

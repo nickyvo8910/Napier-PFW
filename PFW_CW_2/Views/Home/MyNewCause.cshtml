@@ -3,48 +3,60 @@
     ViewBag.Title = "My New Cause";
 }
 
-<section class="bg-light">
-    <div class="text-center ">
-        <div class="text-primary ">
-            <h2>Create new cause</h2>
-        </div>
-        <div class="text-info ">
-            <h5> Please fill in the following details to create a new cause</h5>
-        </div>
-    </div>
+<div class="container col-12 bg-light">
+    <h2 class="text-center text-primary">Create new cause</h2>
+    <h5 class="text-center text-info"> Please fill in the following details to create a new cause</h5>
 
-    <div class="container col-8 text-center">
-        <form method="post">
-            <div class="row col-12">
+    <div class="row col-12">
+        @using (Html.BeginForm("CreateNewCause", "Causes", FormMethod.Post,
+            new {id = "signupform", enctype = "multipart/form-data", @class = "col-12"}))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="col-12 form-group error">
+                @if (TempData["SQLError"] != null)
+                {
+                    <label class="text-center text-danger"> @TempData["SQLError"]</label>
+                }
+                @if (TempData["SQlMsg"] != null)
+                {
+                    <label class="text-center text-success"> @TempData["SQlMsg"]</label>
+                }
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            </div>
+            <input type="hidden" name="author" value="@Session["crrUsername"]"/>
+            <input type="hidden" name="startDate" value="@DateTime.Now"/>
+            <input type="hidden" name="status" value="1"/>
+            <div class="col-12">
                 <div class="form-group">
                     <div class="form-inline text-center">
                         <label class="col-4" for="title">Cause Title: </label>
-                        <input type="text" class="form-control col-6" id="title" placeholder="Your cause's headline" size="60" maxlength="60" required>
+                        <input type="text" class="form-control col-6" id="title" name="title" placeholder="Your cause's headline" size="60" maxlength="60" required pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Title should only contain alphabetic letters. e.g. Vote with Your Wallet 2020"/>
                     </div>
                 </div>
             </div>
-            <div class="row col-12">
+            <div class="col-12">
                 <div class="form-group text-center">
                     <div class="form-inline">
                         <label class="col-4" for="details">Cause Details: </label>
-                        <textarea class="form-control col-6" id="details" placeholder="Details regarding your cause" rows="4" cols="60" required></textarea>
+                        <textarea class="form-control col-6" id="details" name="description" placeholder="Details regarding your cause" rows="4" cols="60" required></textarea>
                     </div>
                 </div>
             </div>
 
-            <div class="row col-12">
+            <div class="col-12">
                 <div class="form-group text-center">
-                    <div class="form-inline">
-                        <label class="col-4" for="photo">Cause Photo: </label>
-                        <input type="file" class="form-control-file col-6" id="photo" aria-describedby="photoHelp" size="60" maxlength="60"/>
+                    <div class="form-inline text-center">
+                        <label class="col-4" for="photoLnk">Cause Photo: </label>
+                        <input type="file" accept="image/png,image/jpg,image/jpeg" aria-describedby="photoHelp" class="form-control col-6 form-control-file" id="photoLnk" name="photoLnk" size="60" maxlength="60">
                         <small id="photoHelp" class="form-text text-muted text-center">Upload a photo for your cause to attract more attention.</small>
                     </div>
                 </div>
             </div>
 
             <br/>
-            <input class=" col-12 form-control btn-default btn-primary" type="submit" name="createCause" value="Create a new cause"/>
+            <input class="col-12 form-control btn-default btn-primary" type="submit" value="Create a new cause"/>
             <br/>
-        </form>
+        }
     </div>
-</section>
+</div>

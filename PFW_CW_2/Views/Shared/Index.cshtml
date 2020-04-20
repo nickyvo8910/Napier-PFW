@@ -8,7 +8,7 @@
     var loadItemNum = 3;
 
 //        load more causes on demand
-//        init with Razor Load Partial (param =0) 
+//        init with Razor Load Partial (param =0)
 //        btnClick will increase local(IndexPage) loadItemNum
 //        Jquery AJAX calls to ParticalCauseResult Action in CausesController (param = JSON(loadItemNum))
 //        ParticalCauseResult return html of the partial view
@@ -41,8 +41,15 @@
     });
 
 </script>
-
+@*Social Media Sharing Function from https://sharethis.com/*@
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5e9d00af69017f0019705263&product=inline-share-buttons" async="async"></script>
 <div class="container">
+    @{
+        if (TempData["LoggedOut"] != null)
+        {
+            <label class=" col-12 text-center text-danger align-middle"> @TempData["LoggedOut"]</label>
+        }
+    }
     <section class="row bg-light col-md-12">
         <div class="text-info ml-3">
             <h2>Our Causes</h2>
