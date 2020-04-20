@@ -177,11 +177,25 @@
     <Content Include="Content\css\custom-css.css" />
     <Content Include="Content\img\about-bg.jpg" />
     <Content Include="Content\img\arrow.png" />
+    <Content Include="Content\img\cause\1.jpg" />
+    <Content Include="Content\img\cause\10.jpg" />
+    <Content Include="Content\img\cause\2.jpg" />
+    <Content Include="Content\img\cause\3.jpg" />
+    <Content Include="Content\img\cause\4.jpg" />
+    <Content Include="Content\img\cause\5.jpg" />
+    <Content Include="Content\img\cause\6.jpg" />
+    <Content Include="Content\img\cause\7.jpg" />
+    <Content Include="Content\img\cause\8.jpg" />
+    <Content Include="Content\img\cause\9.jpg" />
+    <Content Include="Content\img\cause\default.jpg" />
     <Content Include="Content\img\contact-bg.jpg" />
     <Content Include="Content\img\home-bg.jpg" />
     <Content Include="Content\img\post-bg.jpg" />
     <Content Include="Content\img\post-sample-image.jpg" />
     <Content Include="Content\img\profile\gla.jpeg" />
+    <Content Include="Content\img\profile\home-bg.jpg" />
+    <Content Include="Content\img\profile\home-bg_1.jpg" />
+    <Content Include="Content\img\profile\post-bg.jpg" />
     <Content Include="Content\img\vfyw_banner.png" />
     <Content Include="Content\img\vote.ico" />
     <Content Include="Content\img\vote.png" />
@@ -258,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\img\cause\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
