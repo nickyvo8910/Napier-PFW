@@ -1,10 +1,12 @@
-﻿@model IEnumerable<PFW_CW_2.Models.causes>
+﻿@using System.Activities.Expressions
+@using PFW_CW_2.Models
+@model IEnumerable<PFW_CW_2.Models.causes>
 
 @{
     foreach (var item in Model)
     {
-        String crrStatus = "";
-        String crrPledgeString = "";
+        var crrStatus = "";
+        var crrPledgeString = "";
         switch (item.status)
         {
             case 0:
@@ -28,20 +30,28 @@
                 crrPledgeString = " pledges";
                 break;
             default:
-                crrPledgeString = " pledge" ;
+                crrPledgeString = " pledge";
                 break;
         }
-        <div class="row">
-            <div class="col-3 img-fluid">
-                <img class="img-fluid" src="~/Content/img/vote.png"/>
-            </div>
-            <div class="col-9">
-                <h2 class="text-center">Title:" @item.title"</h2>
-                <div class="text-center"> @crrStatus </div>
-                <div class="text-center">@item.pledges.Count @crrPledgeString</div>
-                <h5 class="text-center">"@item.description"</h5>
-                @Html.ActionLink("More Info", "Details", "Causes", new {id = item.causeId}, new {@class = "nav-link text-right"})
-            </div>
+        
+    <div class="row align-middle">
+        <div class="col-sm-12 col-md-5 img-fluid">
+            <img class="img-fluid" src="~/Content/img/cause/@item.photoLnk" alt="Cause-Photo" />
         </div>
+        <div class="col-sm-12 col-md-7">
+            <h2 class="text-center text-primary"> @item.title</h2>
+            @{
+                if (item.startDate != null)
+                {
+                    DateTime? starDate = item.startDate;
+                    <h4 class="text-center text-secondary"></h4>
+                }}
+            <h3 class="text-center text-secondary"> @crrStatus </h3>
+            <h2 class="text-center text-success">@item.pledges.Count @crrPledgeString</h2>
+            <h5 class="text-center text-info">"@item.description.Substring(0, 500) ..."</h5>
+            @Html.ActionLink("More Info", "Details", "Causes", new { id = item.causeId }, new { @class = "nav-link text-right" })
+        </div>
+        <div class="sharethis-inline-share-buttons"></div>
+    </div>
     }
 }

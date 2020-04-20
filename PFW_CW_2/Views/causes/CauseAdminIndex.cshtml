@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PFW_CW_2.Models.causes>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Causes Admin Index";
+}
+
+<h2>Causes Admin Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photoLnk)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.author)
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.startDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.endDate)
+                    </td>
+                    <td>
+                        @{ var strStatus = item.status == 0 ? "Pending" : item.status == 1 ? "Published" : item.status == -1 ? "Retracted" : "Unknown"; }
+                        @strStatus
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.photoLnk)
+                    </td>
+                    <td>
+                        @{ var strAuthor = item.members.first_name + " " + item.members.last_name; }
+                        @strAuthor
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id = item.causeId}) |
+                        @Html.ActionLink("Details", "Details", new {id = item.causeId}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = item.causeId})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

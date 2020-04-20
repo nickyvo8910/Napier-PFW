@@ -1,24 +1,38 @@
-﻿@{
+﻿@model PFW_CW_2.Models.members
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Registration";
 }
-
+@*UK Postcode API from https://getaddress.io/*@
+<script src="https://getaddress-cdn.azureedge.net/scripts/jquery.getAddress-3.0.2.min.js"></script>
+<link href="~/Content/css/custom-css.css" rel="stylesheet" type="text/css" />
 <section class="bg-light">
     <div class="text-center ">
-        <span class="text-primary ">
+        <div class="text-primary ">
             <h2>Registration</h2>
-        </span>
-        <span class="text-info ">
+        </div>
+        <div class="text-info ">
             <h5> Please sign up with your details to become a full member</h5>
-        </span>
+        </div>
     </div>
 
     <div class="container col-8">
-        <form method="post">
+        @using (Html.BeginForm("SignUp", "Home", FormMethod.Post,
+            new { id = "signupform",enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group error">
+                @if (ViewBag.SQlError != null)
+                {
+                    <label class="text-center text-danger"> @ViewBag.SQlError</label>
+                }
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            </div>
             <div class="form-group">
                 <div class="form-inline">
                     <label class="col-4" for="username">Email address: </label>
-                    <input type="email" class="form-control col-6" id="username" aria-describedby="emailHelp" placeholder="user@abc.xyz" size="60" maxlength="60" required>
+                    <input type="email" class="form-control col-6" id="username" name="email" aria-describedby="emailHelp" placeholder="user@abc.xyz" size="60" maxlength="60" required>
                 </div>
                 <small id="emailHelp" class="form-text text-muted text-center">We'll never share your email with anyone else.</small>
             </div>
@@ -26,48 +40,172 @@
                 <div class="form-inline">
                     <label class="col-4" for="password">Password:</label>
                     <input class="form-control col-6" type="password"
-                           name="password" id="password" size="60" maxlength="60" required placeholder="********" aria-describedby="passwordHelp"/>
+                           name="password" id="password" size="60" maxlength="60" required placeholder="********" aria-describedby="passwordHelp" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}" />
                 </div>
-                <small id="passwordHelp" class="form-text text-muted text-center">Password should contain 16-64 characters.</small>
+                <small id="passwordHelp" class="form-text text-muted text-center">
+                    Password should be 8-32 characters including lowercase, uppercase and number.
+                </small>
+                <div id="message">
+                    <h3>Password must contain the following:</h3>
+                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                    <p id="number" class="invalid">A <b>number</b></p>
+                    <p id="length" class="invalid">A length from <b>8-32 characters</b></p>
+                </div>
+
             </div>
             <div class="form-group">
                 <div class="form-inline">
                     <label class="col-4" for="password">Password Retype:</label>
                     <input class="form-control col-6" type="password"
-                           name="rePassword" id="rePassword" size="60" maxlength="60" required placeholder="********"/>
+                           name="rePassword" id="rePassword" size="60" maxlength="60" required placeholder="********" />
+                </div>
+                <div id="message1">
+                    <p id="matching" class="invalid" >Password & Confirmation must be the same.</p>
                 </div>
             </div>
             <div class="form-group">
                 <div class="form-inline">
                     <label class="col-4" for="firstname">First Name: </label>
-                    <input type="text" class="form-control col-6" id="firstname" placeholder="Your fist name" size="60" maxlength="60" required>
+                    <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*'  title="Names should only contain alphabetic letters. e.g. john" class="form-control col-6" id="firstname" name="first_name" placeholder="Your first name" size="60" maxlength="60" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="form-inline">
                     <label class="col-4" for="lastname">Last Name: </label>
-                    <input type="text" class="form-control col-6" id="lastname" placeholder="Your last name" size="60" maxlength="60" required>
+                    <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Names should only contain alphabetic letters. e.g. paul" class="form-control col-6" id="lastname" name="last_name" placeholder="Your last name" size="60" maxlength="60" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="form-inline">
-                    <label class="col-4" for="postcode">Post code: </label>
-                    <input type="text" class="form-control col-6" id="postcode" placeholder="UK post code only" size="60" maxlength="60">
+                    <label class="col-4" for="postcode_lookup">Post code: </label>
+                    <div class=" col-8" id="postcode_lookup"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="form-inline">
-                    <label class="col-4" for="address">Address: </label>
-                    <input type="text" class="form-control col-6" id="address" placeholder="Your address" size="60" maxlength="60">
+                    <label class="col-4" for="address1">Address 1: </label>
+                    <input type="text" pattern='([0-9]*[/]{0,1})*[A-Za-z0-9\s]+' title=" First line should only contain strokes and alphanumeric letters e.g. 1/3 Main Street" class="form-control col-6" id="address1" name="fst_add" placeholder="Your 1st line of address" size="60" maxlength="60">
+                </div>
+                <div class="form-inline">
+                    <label class="col-4" for="address2">Address 2: </label>
+                    <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Second line should only contain alphanumeric letters. e.g. Main Street" class="form-control col-6" id="address2" name="snd_add" placeholder="Your 2nd line of address" size="60" maxlength="60">
+                </div>
+                <div class="form-inline">
+                    <label class="col-4" for="address3">Town: </label>
+                    <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*'  title="Town should only contain alphanumeric letters. e.g. 123 Town" class="form-control col-6" id="address3" name="trd_add" placeholder="Your 3rd line of address" size="60" maxlength="60">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="col-4" for="photo">Photo: </label>
+                    <input type="file" accept="image/png,image/jpg,image/jpeg" class="form-control col-6 form-control-file" id="photo" name="photo" placeholder="Select your avatar photo." size="60" maxlength="60">
                 </div>
             </div>
 
             <br/>
-            <input class=" col-12 form-control btn-default btn-primary" type="submit" name="register" value="Register an Account"/>
+            <input class=" col-12 form-control btn-default btn-primary" type="submit" onclick="return matchingPassword()" name="register" value="Register an Account" />
             <br/>
-        </form>
+        }
     </div>
 </section>
+
+@*UK Postcode API from https://getaddress.io/*@
+<script>
+    $('#postcode_lookup').getAddress(
+        {
+            api_key: 'L0ZNwW2k3ESUdgmcrcAriw25287',
+            output_fields: {
+                line_1: '#address1',
+                line_2: '#address2',
+                post_town: '#address3'
+            }
+        });
+//    document.getElementById('photo').addEventListener('change', function () {
+//        //this.files[0].size gets the size of your file.
+//        if (this.files[0].size > 1024 * 1024) {
+//            // The file is too big (i.e. larger than 1MB)
+//            alert("Please select a smaller photo (less than 1MB) !");
+//            return false;
+//        }
+//    });
+
+    //Password Validation Ref: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_password_val
+    var myInput = document.getElementById("password");
+    var myInput1 = document.getElementById("rePassword");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function () {
+        document.getElementById("message").style.display = "block";
+    }
+    myInput1.onfocus = function () {
+        document.getElementById("message1").style.display = "none";
+    }
+   
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function () {
+        document.getElementById("message").style.display = "none";
+    }
+
+
+    
+    function matchingPassword() {
+        if (myInput1.value === myInput.value)
+            return true;
+        else {
+            document.getElementById("message1").style.display = "block";
+            return false;
+        }
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput.value.length >= 8 && myInput.value.length <=32) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+</script>

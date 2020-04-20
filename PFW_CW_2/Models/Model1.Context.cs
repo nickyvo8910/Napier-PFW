@@ -15,8 +15,7 @@ namespace PFW_CW_2.Models
     
     public partial class PFW_DBEntities : DbContext
     {
-        public PFW_DBEntities()
-            : base("name=PFW_DBEntities")
+        public PFW_DBEntities() : base("name=PFW_DBEntities")
         {
         }
     

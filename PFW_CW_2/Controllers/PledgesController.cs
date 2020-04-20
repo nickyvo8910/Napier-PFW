@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PFW_CW_2.Models;
 
@@ -12,7 +8,7 @@ namespace PFW_CW_2.Controllers
 {
     public class PledgesController : Controller
     {
-        private PFW_DBEntities db = new PFW_DBEntities();
+        private readonly PFW_DBEntities db = new PFW_DBEntities();
 
         // GET: Pledges
         public ActionResult Index()
@@ -24,15 +20,9 @@ namespace PFW_CW_2.Controllers
         // GET: Pledges/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            pledges pledges = db.pledges.Find(id);
-            if (pledges == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var pledges = db.pledges.Find(id);
+            if (pledges == null) return HttpNotFound();
             return View(pledges);
         }
 
@@ -49,7 +39,8 @@ namespace PFW_CW_2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "causeId,memberId,date")] pledges pledges)
+        public ActionResult Create([Bind(Include = "causeId,memberId,date")]
+            pledges pledges)
         {
             if (ModelState.IsValid)
             {
@@ -66,15 +57,9 @@ namespace PFW_CW_2.Controllers
         // GET: Pledges/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            pledges pledges = db.pledges.Find(id);
-            if (pledges == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var pledges = db.pledges.Find(id);
+            if (pledges == null) return HttpNotFound();
             ViewBag.causeId = new SelectList(db.causes, "causeId", "author", pledges.causeId);
             ViewBag.memberId = new SelectList(db.members, "email", "passwd", pledges.memberId);
             return View(pledges);
@@ -85,7 +70,8 @@ namespace PFW_CW_2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "causeId,memberId,date")] pledges pledges)
+        public ActionResult Edit([Bind(Include = "causeId,memberId,date")]
+            pledges pledges)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +79,7 @@ namespace PFW_CW_2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.causeId = new SelectList(db.causes, "causeId", "author", pledges.causeId);
             ViewBag.memberId = new SelectList(db.members, "email", "passwd", pledges.memberId);
             return View(pledges);
@@ -101,24 +88,19 @@ namespace PFW_CW_2.Controllers
         // GET: Pledges/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            pledges pledges = db.pledges.Find(id);
-            if (pledges == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var pledges = db.pledges.Find(id);
+            if (pledges == null) return HttpNotFound();
             return View(pledges);
         }
 
         // POST: Pledges/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            pledges pledges = db.pledges.Find(id);
+            var pledges = db.pledges.Find(id);
             db.pledges.Remove(pledges);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -126,10 +108,7 @@ namespace PFW_CW_2.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -40,7 +40,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.status)
+            @{ String strStatus = (Model.status == 0) ? "Pending" : (Model.status == 1) ? "Published" : (Model.status == -1) ? "Retracted" : "Unknown" ;}
+            @strStatus
         </dd>
 
         <dt>
@@ -60,11 +61,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.members.passwd)
+            @Html.DisplayNameFor(model => model.members.email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.members.passwd)
+            @Html.DisplayFor(model => model.members.email)
         </dd>
 
     </dl>

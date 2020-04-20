@@ -29,6 +29,7 @@ namespace PFW_CW_2.Models
         public string snd_add { get; set; }
         public string trd_add { get; set; }
         public string photo { get; set; }
+        public int memberType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<causes> causes { get; set; }

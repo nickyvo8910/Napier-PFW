@@ -1,0 +1,57 @@
+﻿@using PFW_CW_2.Controllers
+@{
+    ViewBag.Title = "Home Page";
+}
+@* This is a CW2 file *@
+
+<script>
+    var loadItemNum = 0;
+
+//        load more causes on demand
+//        init with Razor Load Partial (param =0) 
+//        btnClick will increase local(IndexPage) loadItemNum
+//        Jquery AJAX calls to ParticalCauseResult Action in CausesController (param = JSON(loadItemNum))
+//        ParticalCauseResult return html of the partial view
+//        Reload causesList's html content with the partial view html
+
+
+    $(document).ready(function() {
+        $('#btnLoadMore').click(function() {
+            loadItemNum += 2;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/Causes/PartialCauseResult")',
+                dataType: 'html',
+                data: '{"loadItemNum":"' + loadItemNum + '"}',
+                contentType: 'application/json; charset=UTF-8',
+                success: function(data) {
+                    $('#causesList').html(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(loadItemNum +
+                        "responseText=" +
+                        XMLHttpRequest.responseText +
+                        "\n textStatus=" +
+                        textStatus +
+                        "\n errorThrown=" +
+                        errorThrown);
+                }
+            });
+        });
+    });
+
+</script>
+
+<div class="container">
+    <section class="row bg-light col-md-12">
+        <div class="text-info ml-3">
+            <h2>Our Causes</h2>
+            <p> Discover our causes and sign your signature to support them.</p>
+        </div>
+    </section>
+    <section class="container bg-light row col-12" id="causesList">
+        @Html.Partial("CausePartialView", new CausesController().GetPartialCauses(3))
+    </section>
+    <button class=" col-12 btn btn-default" id="btnLoadMore">Load more Causes</button>
+
+</div>

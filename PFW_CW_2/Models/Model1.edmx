@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PFW_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PFW_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure"
+              Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="causes">
           <Key>
             <PropertyRef Name="causeId" />
@@ -30,6 +34,7 @@
           <Property Name="snd_add" Type="varchar" MaxLength="50" />
           <Property Name="trd_add" Type="varchar" MaxLength="50" />
           <Property Name="photo" Type="varchar" MaxLength="50" />
+          <Property Name="memberType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="pledges">
           <Key>
@@ -97,7 +102,10 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PFW_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PFW_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="causes">
           <Key>
             <PropertyRef Name="causeId" />
@@ -127,6 +135,7 @@
           <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="causes" Relationship="Self.FK_causes_members" FromRole="members" ToRole="causes" />
           <NavigationProperty Name="pledges" Relationship="Self.FK_pledges_members" FromRole="members" ToRole="pledges" />
+          <Property Name="memberType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="pledges">
           <Key>
@@ -215,6 +224,7 @@
           <EntitySetMapping Name="members">
             <EntityTypeMapping TypeName="PFW_DBModel.members">
               <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="memberType" ColumnName="memberType" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="passwd" ColumnName="passwd" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />

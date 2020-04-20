@@ -8,7 +8,7 @@
 
 <div>
     <h4>causes</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.title)
@@ -39,7 +39,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.status)
+            @{ var strStatus = Model.status == 0 ? "Pending" : Model.status == 1 ? "Published" : Model.status == -1 ? "Retracted" : "Unknown"; }
+            @strStatus
         </dd>
 
         <dt>
@@ -59,16 +60,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.members.passwd)
+            @Html.DisplayNameFor(model => model.author)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.members.passwd)
+            @{ var strAuthor = Model.members.first_name + " " + Model.members.last_name; }
+            @strAuthor
         </dd>
 
     </dl>
 </div>
+<div class="sharethis-inline-share-buttons"></div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.causeId }) |
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Edit", "Edit", new {id = Model.causeId}) |
+    @Html.ActionLink("Back to List", "CauseAdminIndex")
 </p>

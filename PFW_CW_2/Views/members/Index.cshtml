@@ -38,38 +38,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.passwd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.first_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.last_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fst_add)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.snd_add)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.trd_add)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.photo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {id = item.email}) |
-            @Html.ActionLink("Details", "Details", new {id = item.email}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.email})
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.passwd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fst_add)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.snd_add)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trd_add)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.photo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.email}) |
+                @Html.ActionLink("Details", "Details", new {id = item.email}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.email})
+            </td>
+        </tr>
+    }
 
 </table>
