@@ -15,7 +15,6 @@
 <body>
 @* Menu code  *@
 <div class="col-12 navbar navbar-light bg-light navbar-expand-lg navbar-fixed-top ">
-    <!-- Action Link (label, actionName,targetController, queryString&value, actionLinkProperty) -->
     <img alt="VoteForYourWalletLogo" class="navbar-brand" src="~/Content/img/vote.png"/>
     @Html.ActionLink("Vote with Your Wallet", "Index", "Home", new {}, new {@class = "navbar-brand mx-md-0"})
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,10 +69,10 @@
         </ul>
 
         <div class="my-md-2 float-md-right">
-            <form class="form-inline">
+            <form class="form-check-inline">
                 <input class="form-control" type="text" placeholder="Search current causes">
                 &nbsp;
-                <input class="form-control btn-default btn-primary  m-l-2 p-2" type="submit" value="Search">
+                <input class="form-control btn-default btn-primary  ml-2 p-2" type="submit" value="Search">
             </form>
         </div>
 

@@ -32,12 +32,12 @@
 
         <form method="post" action="/Home/LogIn">
             @Html.AntiForgeryToken()
-            <div class="form-inline">
+            <div class="form-check-inline">
                 <label for="usrName" class="col-4">Username:</label>
                 <input class="form-control col-6" type="email" name="usrName"
                        id="usrName" size="60" maxlength="60" required placeholder="user@abc.xyz"/>
             </div>
-            <div class="form-inline">
+            <div class="form-check-inline">
                 <label class="col-4" for="pssWd">Password:</label>
                 <input class="form-control col-6" type="password"
                        name="pssWd" id="pssWd" size="60" maxlength="60" required placeholder="********" />

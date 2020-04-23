@@ -1,6 +1,4 @@
-﻿@using System.Activities.Expressions
-@using PFW_CW_2.Models
-@model IEnumerable<PFW_CW_2.Models.causes>
+﻿@model IEnumerable<PFW_CW_2.Models.causes>
 
 @{
     foreach (var item in Model)
@@ -60,7 +58,7 @@
                     <input class=" col-12 btn btn-warning text-center align-middle" type="submit" value="Pledge your support to this cause" />
                 }
                 @{
-                    if (@item.description.Length > 500)
+                    if (item.description.Length > 500)
                     {
                         <h5 class="text-center text-info">" @item.description.Substring(0, 500) ..."</h5>
                     }

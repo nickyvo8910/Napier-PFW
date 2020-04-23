@@ -1,8 +1,4 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
+﻿using System.Web.Mvc;
 using PFW_CW_2.Models;
 
 namespace PFW_CW_2.Controllers
@@ -17,7 +13,11 @@ namespace PFW_CW_2.Controllers
         public RedirectToRouteResult PledgeAction([Bind(Include = "causeId,memberId,date")]
             pledges pledges)
         {
-            if (ModelState.IsValid && pledges.causeId != null && pledges.memberId != null && pledges.date != null)
+            if (Session["crrUsername"] == null)
+            {
+                return RedirectToAction("Logout", "Home");
+            }
+            if (ModelState.IsValid)
             {
                 if (db.pledges.Find(pledges.causeId,pledges.memberId)==null)
                 {
@@ -33,98 +33,7 @@ namespace PFW_CW_2.Controllers
             return RedirectToAction("Details", "Causes", new { id = pledges.causeId});
         }
 
-        // GET: Pledges
-        
-
-        // GET: Pledges/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var pledges = db.pledges.Find(id);
-            if (pledges == null) return HttpNotFound();
-            return View(pledges);
-        }
-
-        // GET: Pledges/Create
-        public ActionResult Create()
-        {
-            ViewBag.causeId = new SelectList(db.causes, "causeId", "author");
-            ViewBag.memberId = new SelectList(db.members, "email", "passwd");
-            return View();
-        }
-
-        // POST: Pledges/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "causeId,memberId,date")]
-            pledges pledges)
-        {
-            if (ModelState.IsValid)
-            {
-                db.pledges.Add(pledges);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.causeId = new SelectList(db.causes, "causeId", "author", pledges.causeId);
-            ViewBag.memberId = new SelectList(db.members, "email", "passwd", pledges.memberId);
-            return View(pledges);
-        }
-
-        // GET: Pledges/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var pledges = db.pledges.Find(id);
-            if (pledges == null) return HttpNotFound();
-            ViewBag.causeId = new SelectList(db.causes, "causeId", "author", pledges.causeId);
-            ViewBag.memberId = new SelectList(db.members, "email", "passwd", pledges.memberId);
-            return View(pledges);
-        }
-
-        // POST: Pledges/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "causeId,memberId,date")]
-            pledges pledges)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(pledges).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.causeId = new SelectList(db.causes, "causeId", "author", pledges.causeId);
-            ViewBag.memberId = new SelectList(db.members, "email", "passwd", pledges.memberId);
-            return View(pledges);
-        }
-
-        // GET: Pledges/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var pledges = db.pledges.Find(id);
-            if (pledges == null) return HttpNotFound();
-            return View(pledges);
-        }
-
-        // POST: Pledges/Delete/5
-        [HttpPost]
-        [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            var pledges = db.pledges.Find(id);
-            db.pledges.Remove(pledges);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing) db.Dispose();

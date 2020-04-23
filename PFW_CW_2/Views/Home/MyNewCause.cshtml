@@ -29,7 +29,7 @@
             <input type="hidden" name="status" value="1"/>
             <div class="col-12">
                 <div class="form-group">
-                    <div class="form-inline text-center">
+                    <div class="form-check-inline text-center">
                         <label class="col-4" for="title">Cause Title: </label>
                         <input type="text" class="form-control col-6" id="title" name="title" placeholder="Your cause's headline" size="60" maxlength="60" required pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Title should only contain alphabetic letters. e.g. Vote with Your Wallet 2020"/>
                     </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="col-12">
                 <div class="form-group text-center">
-                    <div class="form-inline">
+                    <div class="form-check-inline">
                         <label class="col-4" for="details">Cause Details: </label>
                         <textarea class="form-control col-6" id="details" name="description" placeholder="Details regarding your cause" rows="4" cols="60" required></textarea>
                     </div>
@@ -46,11 +46,12 @@
 
             <div class="col-12">
                 <div class="form-group text-center">
-                    <div class="form-inline text-center">
+                    <div class="form-check-inline text-center">
                         <label class="col-4" for="photoLnk">Cause Photo: </label>
                         <input type="file" accept="image/png,image/jpg,image/jpeg" aria-describedby="photoHelp" class="form-control col-6 form-control-file" id="photoLnk" name="photoLnk" size="60" maxlength="60">
-                        <small id="photoHelp" class="form-text text-muted text-center">Upload a photo for your cause to attract more attention.</small>
                     </div>
+                    <small id="photoHelp" class="form-text text-muted text-center">Upload a photo for your cause to attract more attention.</small>
+
                 </div>
             </div>
 

@@ -34,8 +34,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
     <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -187,6 +188,7 @@
     <Content Include="Content\img\cause\7.jpg" />
     <Content Include="Content\img\cause\8.jpg" />
     <Content Include="Content\img\cause\9.jpg" />
+    <Content Include="Content\img\cause\about-bg.jpg" />
     <Content Include="Content\img\cause\default.jpg" />
     <Content Include="Content\img\cause\post-sample-image.jpg" />
     <Content Include="Content\img\contact-bg.jpg" />
