@@ -30,15 +30,15 @@
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
             </div>
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="username">Email address: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="username">Email address: </label>
                     <input type="email" class="form-control col-6" id="username" name="email" aria-describedby="emailHelp" placeholder="user@abc.xyz" size="60" maxlength="60" required>
                 </div>
                 <small id="emailHelp" class="form-text text-muted text-center">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="password">Password:</label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="password">Password:</label>
                     <input class="form-control col-6" type="password"
                            name="password" id="password" size="60" maxlength="60" required placeholder="********" aria-describedby="passwordHelp" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}" />
                 </div>
@@ -55,8 +55,8 @@
 
             </div>
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="password">Password Retype:</label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="password">Password Retype:</label>
                     <input class="form-control col-6" type="password"
                            name="rePassword" id="rePassword" size="60" maxlength="60" required placeholder="********" />
                 </div>
@@ -65,45 +65,45 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="firstname">First Name: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="firstname">First Name: </label>
                     <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*'  title="Names should only contain alphabetic letters. e.g. john" class="form-control col-6" id="firstname" name="first_name" placeholder="Your first name" size="60" maxlength="60" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="lastname">Last Name: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="lastname">Last Name: </label>
                     <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Names should only contain alphabetic letters. e.g. paul" class="form-control col-6" id="lastname" name="last_name" placeholder="Your last name" size="60" maxlength="60" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="postcode_lookup">Post code: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="postcode_lookup">Post code: </label>
                     <div class=" col-8" id="postcode_lookup"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="address1">Address 1: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="address1">Address 1: </label>
                     <input type="text" pattern='([A-Za-z0-9]*[/]{0,1})*[A-Za-z0-9\s]+' title=" First line should only contain strokes and alphanumeric letters e.g. 1/3 Main Street" class="form-control col-6" id="address1" name="fst_add" placeholder="Your 1st line of address" size="60" maxlength="60">
                 </div>
-                <div class="form-check-inline">
-                    <label class="col-4" for="address2">Address 2: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="address2">Address 2: </label>
                     <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*' title="Second line should only contain alphanumeric letters. e.g. Main Street" class="form-control col-6" id="address2" name="snd_add" placeholder="Your 2nd line of address" size="60" maxlength="60">
                 </div>
-                <div class="form-check-inline">
-                    <label class="col-4" for="address3">Town: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="address3">Town: </label>
                     <input type="text" pattern='[A-Za-z0-9]+[\s]*[A-Za-z0-9\s]*'  title="Town should only contain alphanumeric letters. e.g. 123 Town" class="form-control col-6" id="address3" name="trd_add" placeholder="Your 3rd line of address" size="60" maxlength="60">
                 </div>
 
             </div>
 
             <div class="form-group">
-                <div class="form-check-inline">
-                    <label class="col-4" for="photo">Photo: </label>
+                <div class="form-check-inline col-12">
+                    <label class="col-4 text-right" for="photo">Photo: </label>
                     <input type="file" accept="image/png,image/jpg,image/jpeg" class="form-control col-6 form-control-file" id="photo" name="photo" placeholder="Select your avatar photo." size="60" maxlength="60">
                 </div>
             </div>
